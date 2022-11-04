@@ -7,13 +7,13 @@ class FileHandler:
 
     def __init__(self, root_folder):
         self.root_folder = root_folder
-        self.file_format = self.choosing_file_format()
+        self.file_format = self.input_file_format()
         self.all_paths = list(self.get_all_paths())
         self.files_size = self.get_files_same_size()
         self.duplicates = self.get_duplicates()
 
     @staticmethod
-    def choosing_file_format() -> str:
+    def input_file_format() -> str:
         print("\nEnter file format:")
         return input()
 
@@ -46,7 +46,7 @@ class FileHandler:
             key = os.path.getsize(path)
             intermediate_dict = self.filling_intermediate_dictionary(intermediate_dict, key, path)
 
-        files_size = self.get_dictionary_necessary(intermediate_dict)
+        files_size = self.get_necessary_dictionary(intermediate_dict)
         return self.get_sorted_dict(files_size)
 
     def get_sorted_dict(self, files_size) -> dict:
@@ -67,11 +67,11 @@ class FileHandler:
 
                 intermediate_dict = self.filling_intermediate_dictionary(intermediate_dict, key, path)
 
-        duplicates = self.get_dictionary_necessary(intermediate_dict)
+        duplicates = self.get_necessary_dictionary(intermediate_dict)
         return duplicates
 
     @classmethod
-    def get_dictionary_necessary(cls, intermediate_dict) -> dict:
+    def get_necessary_dictionary(cls, intermediate_dict) -> dict:
         """Get a dictionary from a shared dictionary that contains more than one file path"""
         necessary_dictionary = {}
         for key, paths in intermediate_dict.items():
